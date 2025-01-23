@@ -1,17 +1,14 @@
-import type { Route } from "./+types/home";
-import { Welcome } from "../welcome/welcome";
+import { Form, redirect, type ActionFunctionArgs } from "react-router";
 
-export function meta({}: Route.MetaArgs) {
-  return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
-  ];
+export function action({ request }: ActionFunctionArgs) {
+  const headers = new Headers(request.headers);
+  return redirect("https://remix.run/", { headers });
 }
 
-export function loader({ context }: Route.LoaderArgs) {
-  return { message: context.VALUE_FROM_VERCEL };
-}
-
-export default function Home({ loaderData }: Route.ComponentProps) {
-  return <Welcome message={loaderData.message} />;
+export default function Test() {
+  return (
+    <Form method="post">
+      <button type="submit">Redirect</button>
+    </Form>
+  );
 }
